@@ -1,0 +1,5 @@
+packages:
+  - name: web-creator
+    functions:
+      - name: main
+        main: main.py
