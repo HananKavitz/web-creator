@@ -1,6 +1,6 @@
 from openai import OpenAI
 import os
-import requests
+from digital_ocean_utils import publish_app
 from repo_actions import create_repo, clone_repo, commit_and_push
 
 
@@ -28,7 +28,8 @@ def main(event, context):
         f.write(index)
 
     commit_and_push(repo_name)
-    return index
+    live_url = publish_app(name=repo_name.replace('_', ''), repo_url=f'HananKavitz/{repo_name}')
+    return live_url
 
 
 if __name__ == '__main__':
