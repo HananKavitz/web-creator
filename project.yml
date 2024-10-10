@@ -3,3 +3,5 @@ packages:
     functions:
       - name: main
         main: main.py
+        runtime: 'python:3.11'
+        web: true

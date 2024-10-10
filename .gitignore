@@ -168,3 +168,4 @@ cython_debug/
 index.html
 /.idea/workspace.xml
 /.idea/web-creator2.iml
+/.deployed

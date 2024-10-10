@@ -1,7 +1,13 @@
 from openai import OpenAI
 import os
+import requests
+from repo_actions import create_repo, clone_repo, commit_and_push
+
 
 def main(event, context):
+    repo_name = 'hanan_repo'
+    res = create_repo(repo_name=repo_name, description='some stupid description')
+    clone_repo(repo_name=repo_name, repo_url=res['html_url'])
     client = OpenAI(
         # This is the default and can be omitted
         # api_key=os.environ.get("OPENAI_API_KEY"),
@@ -16,11 +22,12 @@ def main(event, context):
         ],
         model="gpt-3.5-turbo",
     )
-    # print(chat_completion.choices[0].message.content)
+
     index = chat_completion.choices[0].message.content
-    with open('../../index.html', 'w+') as f:
+    with open(f'{repo_name}/index.html', 'w+') as f:
         f.write(index)
 
+    commit_and_push(repo_name)
     return index
 
 
