@@ -18,7 +18,7 @@ def main(event, context):
     )
     # print(chat_completion.choices[0].message.content)
     index = chat_completion.choices[0].message.content
-    with open('index.html', 'w+') as f:
+    with open('../../index.html', 'w+') as f:
         f.write(index)
 
     return index
