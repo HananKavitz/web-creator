@@ -29,12 +29,14 @@ def publish_app(name, repo_url):
 
     res = requests.post('https://api.digitalocean.com/v2/apps', json=data, headers=headers)
 
-    print(res)
     if res.status_code != 200:
         print(res.content['message'])
         exit(1)
 
-    sleep(20)
+    print('sleeping')
+
+    sleep(60)
     res2 = requests.get('https://api.digitalocean.com/v2/apps', headers=headers)
-    apps = json.loads(res.content.decode('ascii'))['app']
-    return json.loads(res.content.decode('ascii'))['app']['live_url']
+    apps = json.loads(res2.content.decode('ascii'))['apps']
+    app = next((x for x in apps if x['spec']['name'] == name), None)
+    return app['live_url']
